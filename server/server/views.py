@@ -9,10 +9,10 @@ class ApiOverview(APIView):
             'User Login': '/user/login',
             'View User Logged in': '/user/',
             'User Logout': '/user/logout',
-            'Get All Sales': '/sales',
-            'Add Sales': '/sales',
+            'Get Sales All': '/sales',
+            'Add Sales': '/sales/create',
             'Get Sales By Id': '/sales/<id:int>',
-            'Update Sales By Id': '/sales/<id:int>',
-            'Delete Sales By Id': '/sales/<id:int>'
+            'Update Sales By Id': '/sales/<id:int>/update',
+            'Delete Sales By Id': '/sales/<id:int>/delete'
         }
         return Response(api_urls)
