@@ -6,14 +6,6 @@ from .models import User
 from rest_framework.exceptions import AuthenticationFailed
 import jwt, datetime
 
-class RegisterView(APIView):
-    def post(self, request):
-        serializer = UserSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=201)
-        return Response(serializer.errors, status=422)
-    
 def generate_jwt_token(user_id):
     expiration_time = datetime.datetime.utcnow() + datetime.timedelta(minutes=60)
     payload = {
@@ -23,6 +15,17 @@ def generate_jwt_token(user_id):
     }
     token = jwt.encode(payload, 'secret', algorithm='HS256')
     return token, expiration_time
+
+class RegisterView(APIView):
+    def post(self, request):
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({
+                'status': 'success',
+                'addedUser': serializer.data
+            }, status=201)
+        return Response(serializer.errors, status=422)
 
 class LoginView(APIView):
     def post(self, request):
@@ -65,7 +68,10 @@ class UserView(APIView):
         
         serializer = UserSerializer(user)
         
-        return Response(serializer.data)
+        return Response({
+            'status': 'success',
+            'user': serializer.data
+        })
     
 class LogoutView(APIView):
     def delete(self, request):

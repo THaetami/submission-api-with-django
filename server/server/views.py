@@ -7,12 +7,12 @@ class ApiOverview(APIView):
             'Admin Page': " /admin | ubah data kolom is_superuser dan is_staff pada tabel user menjadi 1, agar bisa mengakses admin page ",
             'User Register': '/user/register',
             'User Login': '/user/login',
-            'View User Logged in': '/user/',
+            'View User Logged in': '/user',
             'User Logout': '/user/logout',
             'Get Sales All': '/sales',
             'Add Sales': '/sales/create',
-            'Get Sales By Id': '/sales/<id:int>',
-            'Update Sales By Id': '/sales/<id:int>/update',
-            'Delete Sales By Id': '/sales/<id:int>/delete'
+            'Get Sales By sal_id': '/sales/<sal_id:str>',
+            'Update Sales': '/sales/<sal_id:str>/update',
+            'Delete Sales': '/sales/<sal_id:str>/delete'
         }
         return Response(api_urls)
