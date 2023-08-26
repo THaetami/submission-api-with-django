@@ -34,7 +34,7 @@ python.exe -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-7. edit database credential [disini](https://github.com/THaetami/submission-api-with-django/blob/master/server/server/)settings.py
+7. edit database credential [disini](https://github.com/THaetami/submission-api-with-django/blob/master/server/serversettings.py)
 
 8. jalankan project dan lihat overview api [disini](http://127.0.0.1:8000/)
 
