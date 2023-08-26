@@ -36,7 +36,14 @@ pip install -r requirements.txt
 
 7. edit database credential [disini](https://github.com/THaetami/submission-api-with-django/blob/master/server/server/settings.py)
 
-8. jalankan project dan lihat overview api [disini](http://127.0.0.1:8000/)
+8. table migration
+
+```sh
+python manage.py makemigrations
+python manage.py migrate
+```
+
+9. jalankan project dan lihat overview api [disini](http://127.0.0.1:8000/)
 
 ```sh
 python manage.py runserver
