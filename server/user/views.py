@@ -2,7 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.http import Http404
 
-from server.authentication_utils import decode_and_verify_jwt_token, generate_jwt_token
+from server.utils.authentication_utils import *
 from .serializer import UserSerializer
 from .models import User
 from rest_framework.exceptions import AuthenticationFailed

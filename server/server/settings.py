@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'dtpenjualan',
     'rest_framework',
     'corsheaders',
-    'server.authentication_utils'
+    'server.utils.authentication_utils'
 ]
 
 MIDDLEWARE = [
