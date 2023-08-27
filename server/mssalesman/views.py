@@ -3,7 +3,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.db.models import Max
 from django.http import Http404
-from rest_framework.exceptions import AuthenticationFailed
+
+from server.authentication_utils import decode_and_verify_jwt_token
 
 from .serialize import MssalesmenSerializers, MssalesmenViewSerializers
 from rest_framework.exceptions import AuthenticationFailed, NotFound, ValidationError
@@ -47,11 +48,9 @@ def check_bekerjasejak(jul_sal_id, sal_bekerjasejak_str):
         
 class Index(APIView):
     def get(self, request):
-        token = request.COOKIES.get('jwt')
         
-        if not token:
-            raise AuthenticationFailed('Unauthenticated')
-        
+        decode_and_verify_jwt_token(request.COOKIES.get('jwt'))
+         
         salesman = Mssalesmen.objects.all()
         serializer = MssalesmenViewSerializers(salesman, many=True)
 
@@ -62,10 +61,7 @@ class Index(APIView):
     
 class AddSales(APIView):
     def post(self, request):
-        token = request.COOKIES.get('jwt')
-        
-        if not token:
-            raise AuthenticationFailed('Unauthenticated')
+        decode_and_verify_jwt_token(request.COOKIES.get('jwt'))
             
         get_kota(request.data.get('kota'))
         
@@ -87,10 +83,7 @@ class AddSales(APIView):
 
 class GetSalesById(APIView):
     def get(self, request, pk):
-        token = request.COOKIES.get('jwt')
-        
-        if not token:
-            raise AuthenticationFailed('Unauthenticated')
+        decode_and_verify_jwt_token(request.COOKIES.get('jwt'))
         
         salesman = get_salesman(pk)
         
@@ -103,10 +96,7 @@ class GetSalesById(APIView):
     
 class UpdateSales(APIView):
     def put(self, request, pk):
-        token = request.COOKIES.get('jwt')
-        
-        if not token:
-            raise AuthenticationFailed('Unauthenticated')
+        decode_and_verify_jwt_token(request.COOKIES.get('jwt'))
         
         salesman = get_salesman(pk)
         
@@ -134,10 +124,7 @@ class UpdateSales(APIView):
 
 class DeleteSales(APIView):
     def delete(self, request, pk):
-        token = request.COOKIES.get('jwt')
-        
-        if not token:
-            raise AuthenticationFailed('Unauthenticated')
+        decode_and_verify_jwt_token(request.COOKIES.get('jwt'))
         
         salesman = get_salesman(pk)
         

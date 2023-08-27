@@ -1,6 +1,8 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.http import Http404
+
+from server.authentication_utils import decode_and_verify_jwt_token
 from .serializer import UserSerializer
 from .models import User
 from rest_framework.exceptions import AuthenticationFailed
@@ -54,15 +56,7 @@ class LoginView(APIView):
     
 class UserView(APIView):
     def get(self, request):
-        token = request.COOKIES.get('jwt')
-        
-        if not token:
-            raise AuthenticationFailed('unauthenticated')
-        
-        try: 
-            payload = jwt.decode(token, 'secret', algorithms='HS256')
-        except jwt.ExpiredSignatureError:
-            raise AuthenticationFailed('token expired')
+        payload = decode_and_verify_jwt_token(request.COOKIES.get('jwt'))
         
         user = User.objects.get(id=payload['id'])
         
