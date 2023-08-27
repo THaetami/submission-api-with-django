@@ -2,21 +2,12 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.http import Http404
 
-from server.authentication_utils import decode_and_verify_jwt_token
+from server.authentication_utils import decode_and_verify_jwt_token, generate_jwt_token
 from .serializer import UserSerializer
 from .models import User
 from rest_framework.exceptions import AuthenticationFailed
-import jwt, datetime
 
-def generate_jwt_token(user_id):
-    expiration_time = datetime.datetime.utcnow() + datetime.timedelta(minutes=60)
-    payload = {
-        'id': user_id,
-        'exp': expiration_time,
-        'iat': datetime.datetime.utcnow()
-    }
-    token = jwt.encode(payload, 'secret', algorithm='HS256')
-    return token, expiration_time
+
 
 class RegisterView(APIView):
     def post(self, request):
