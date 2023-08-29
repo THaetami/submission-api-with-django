@@ -20,6 +20,7 @@ class RegisterView(APIView):
             }, status=201)
         return Response(serializer.errors, status=422)
 
+
 class LoginView(APIView):
     def post(self, request):
         email = request.data['email']
@@ -58,8 +59,10 @@ class UserView(APIView):
             'user': serializer.data
         })
     
+    
 class LogoutView(APIView):
     def delete(self, request):
+        decode_and_verify_jwt_token(request.COOKIES.get('jwt'))
         response = Response()
         response.delete_cookie('jwt')
         response.data = {
